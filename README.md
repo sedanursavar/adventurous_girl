@@ -1,4 +1,3 @@
-# adventurous_girl
 # Adventurous Girl - 2D Koşu ve Animasyon Oyunu
 
 Bu proje, Python ve Pygame kullanılarak geliştirilmiş basit bir 2D koşu oyunudur. Karakter animasyonları, hareketli arka plan, rastgele engeller ve skor sistemi içerir. Skor arttıkça ev ekranı değişir, oyun sırasında duraklatma ve menü özellikleri mevcuttur.
