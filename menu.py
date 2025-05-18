@@ -18,7 +18,7 @@ class Menu:
         # Menü arka planını yükle
         try:
             self.bg_image = pygame.image.load(
-                r"C:\Users\seda.savar\Desktop\programlama_dilleri\main_menu_background_under_buttons.png"
+                r"C:\Users\seda.savar\Desktop\adventurous_girl\images\main_menu_background_under_buttons.png"
             ).convert()
             # Gerekirse boyutlandır
             self.bg_image = pygame.transform.scale(self.bg_image, (self.width, self.height))

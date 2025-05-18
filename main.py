@@ -4,7 +4,6 @@ import os
 import random
 from character_animation import CharacterAnimation
 from menu import Menu
-import house  # yeni modül
 
 pygame.init()
 
@@ -15,13 +14,13 @@ pygame.display.set_caption("Animasyonlu Oyun")
 FPS = 60
 clock = pygame.time.Clock()
 
-bg_image = pygame.image.load(r"C:\Users\seda.savar\Desktop\adventurous_girl\background.png").convert()
+bg_image = pygame.image.load(r"C:\Users\seda.savar\Desktop\adventurous_girl\images\background.png").convert()
 bg_width = bg_image.get_width()
 
 scroll_speed = 3
 ground_y = HEIGHT - 50
 
-obstacle_folder = r"C:\Users\seda.savar\Desktop\adventurous_girl\obstacles"
+obstacle_folder = r"C:\Users\seda.savar\Desktop\adventurous_girl\images\obstacles"
 obstacle_files = [f for f in os.listdir(obstacle_folder) if f.lower().endswith('.png')]
 
 obstacle_images = []
@@ -55,53 +54,29 @@ class Obstacle:
     def off_screen(self):
         return self.x < -self.width
 
-anim_folder = r"C:\Users\seda.savar\Desktop\adventurous_girl\character-animations"
+anim_folder = r"C:\Users\seda.savar\Desktop\adventurous_girl\images\character-animations"
 character_anim = CharacterAnimation(anim_folder, animation_speed=0.15, background_width=WIDTH)
 
 menu = Menu(WIN, WIDTH, HEIGHT)
 
-# Ev ve eşyalar için görsel yükleme
-house_bg_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\room.png"
-bed_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\bed.png"
-chair_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\chair.png"
-lamp_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\lamp.png"
-table_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\table.png"
-
-house_bg = pygame.image.load(house_bg_path).convert()
-house_bg = pygame.transform.scale(house_bg, (WIDTH, HEIGHT))
-
-bed_img = pygame.image.load(bed_path).convert_alpha()
-chair_img = pygame.image.load(chair_path).convert_alpha()
-lamp_img = pygame.image.load(lamp_path).convert_alpha()
-table_img = pygame.image.load(table_path).convert_alpha()
-
-scale_factor = 0.3
-def scale_img(img):
-    w, h = img.get_size()
-    return pygame.transform.scale(img, (int(w*scale_factor), int(h*scale_factor)))
-
-bed_img = scale_img(bed_img)
-chair_img = scale_img(chair_img)
-lamp_img = scale_img(lamp_img)
-table_img = scale_img(table_img)
-
-assets = {
-    "bg": house_bg,
-    "bed": bed_img,
-    "chair": chair_img,
-    "lamp": lamp_img,
-    "table": table_img
-}
-
-house_screen = house.HouseScreen(WIN, WIDTH, HEIGHT, assets)
-
-rewards = [
-    {"img": assets["bed"], "pos": (70, 200)},    # yatak biraz solda ve aşağıda
-    {"img": assets["chair"], "pos": (280, 190)}, # sandalye sağa biraz yaklaşsın
-    {"img": assets["lamp"], "pos": (140, 80)},   # lamba yukarıda ve ortada
-    {"img": assets["table"], "pos": (320, 180)}, # masa biraz sağda ve biraz aşağıda
+# Oda görselleri
+room_image_paths = [
+    r"C:\Users\seda.savar\Desktop\adventurous_girl\images\XD\room0.png",
+    r"C:\Users\seda.savar\Desktop\adventurous_girl\images\XD\room1.png",
+    r"C:\Users\seda.savar\Desktop\adventurous_girl\images\XD\room2.png",
+    r"C:\Users\seda.savar\Desktop\adventurous_girl\images\XD\room3.png",
+    r"C:\Users\seda.savar\Desktop\adventurous_girl\images\XD\room4.png",
+    r"C:\Users\seda.savar\Desktop\adventurous_girl\images\XD\room5.png",
 ]
 
+room_images = []
+for path in room_image_paths:
+    if os.path.exists(path):
+        img = pygame.image.load(path).convert()
+        img = pygame.transform.scale(img, (WIDTH, HEIGHT))
+        room_images.append(img)
+
+current_room_index = 0  # Başlangıçta ilk oda
 
 x1, x2 = 0, bg_width
 obstacles = []
@@ -207,10 +182,10 @@ while running:
 
         menu.increase_score()
 
-        # Skor 1000 artınca ev moduna geç, ödül ekle
-        next_reward_index = len(house_screen.rewards_placed)
-        if menu.score >= (next_reward_index + 1) * 10 and next_reward_index < len(rewards):
-            house_screen.add_reward(rewards[next_reward_index])
+        # Skor arttıkça oda değişimi
+        next_room_index = menu.score // 20
+        if next_room_index != current_room_index and next_room_index < len(room_images):
+            current_room_index = next_room_index
             menu.state = "house"
 
         WIN.blit(bg_image, (x1, 0))
@@ -222,7 +197,15 @@ while running:
         WIN.blit(character_anim.get_image(), (player_x, player_y))
 
     elif menu.state == "house":
-        house_screen.draw()
+        # Ev ekranı olarak sadece ilgili oda görselini çiz
+        WIN.blit(room_images[current_room_index], (0,0))
+
+        # Bilgi metni
+        font = pygame.font.SysFont(None, 36)
+        text = font.render("Evdeyiz - Geri dönmek için ESC", True, (255,255,255))
+        rect = text.get_rect(center=(WIDTH // 2, HEIGHT - 40))
+        WIN.blit(text, rect)
+
         if keys[pygame.K_ESCAPE]:
             menu.state = "playing"
 
