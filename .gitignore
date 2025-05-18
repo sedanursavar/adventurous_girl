@@ -1,0 +1,25 @@
+# Python cache dosyaları
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE ve editör klasörleri
+.vscode/
+.idea/
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# Sanal ortam klasörü (örneğin)
+env/
+venv/
+
+# Python egg dosyaları
+*.egg-info/
+dist/
+build/
+
+# Diğer
+.env
