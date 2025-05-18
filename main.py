@@ -15,13 +15,13 @@ pygame.display.set_caption("Animasyonlu Oyun")
 FPS = 60
 clock = pygame.time.Clock()
 
-bg_image = pygame.image.load(r"C:\Users\seda.savar\Desktop\programlama_dilleri\background.png").convert()
+bg_image = pygame.image.load(r"C:\Users\seda.savar\Desktop\adventurous_girl\background.png").convert()
 bg_width = bg_image.get_width()
 
 scroll_speed = 3
 ground_y = HEIGHT - 50
 
-obstacle_folder = r"C:\Users\seda.savar\Desktop\programlama_dilleri\obstacles"
+obstacle_folder = r"C:\Users\seda.savar\Desktop\adventurous_girl\obstacles"
 obstacle_files = [f for f in os.listdir(obstacle_folder) if f.lower().endswith('.png')]
 
 obstacle_images = []
@@ -55,17 +55,17 @@ class Obstacle:
     def off_screen(self):
         return self.x < -self.width
 
-anim_folder = r"C:\Users\seda.savar\Desktop\programlama_dilleri\character-animations"
+anim_folder = r"C:\Users\seda.savar\Desktop\adventurous_girl\character-animations"
 character_anim = CharacterAnimation(anim_folder, animation_speed=0.15, background_width=WIDTH)
 
 menu = Menu(WIN, WIDTH, HEIGHT)
 
 # Ev ve eşyalar için görsel yükleme
-house_bg_path = r"C:\Users\seda.savar\Desktop\programlama_dilleri\oda_esya\room.png"
-bed_path = r"C:\Users\seda.savar\Desktop\programlama_dilleri\oda_esya\bed.png"
-chair_path = r"C:\Users\seda.savar\Desktop\programlama_dilleri\oda_esya\chair.png"
-lamp_path = r"C:\Users\seda.savar\Desktop\programlama_dilleri\oda_esya\lamp.png"
-table_path = r"C:\Users\seda.savar\Desktop\programlama_dilleri\oda_esya\table.png"
+house_bg_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\room.png"
+bed_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\bed.png"
+chair_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\chair.png"
+lamp_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\lamp.png"
+table_path = r"C:\Users\seda.savar\Desktop\adventurous_girl\oda_esya\table.png"
 
 house_bg = pygame.image.load(house_bg_path).convert()
 house_bg = pygame.transform.scale(house_bg, (WIDTH, HEIGHT))
