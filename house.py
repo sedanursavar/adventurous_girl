@@ -1,4 +1,6 @@
 import pygame
+
+
 class HouseScreen:
     def __init__(self, screen, width, height, room_images):
         self.placed_items = []
@@ -17,7 +19,7 @@ class HouseScreen:
         # Sadece seçili oda resmini çiz
         self.screen.blit(self.room_images[self.current_room_index], (0, 0))
 
-        # Oda bilgisi vb. metin
+     
         text = f"Room Level: {self.current_room_index + 1}"
         render = self.font.render(text, True, (255, 255, 255))
         self.screen.blit(render, (10, 10))

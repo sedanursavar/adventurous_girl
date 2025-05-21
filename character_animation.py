@@ -4,11 +4,7 @@ from collections import defaultdict
 
 class CharacterAnimation:
     def __init__(self, folder_path, animation_speed=0.15, background_width=576):
-        """
-        folder_path: Animasyon PNG dosyalarının olduğu klasörün yolu
-        animation_speed: Animasyon kare hızı
-        background_width: Arka plan genişliği, ölçeklendirme için kullanılır
-        """
+
         self.animations = defaultdict(list)
         self.animation_speed = animation_speed
         self.current_animation = None

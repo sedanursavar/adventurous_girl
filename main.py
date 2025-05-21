@@ -183,7 +183,7 @@ while running:
         menu.increase_score()
 
         # Skor arttıkça oda değişimi
-        next_room_index = menu.score // 20
+        next_room_index = menu.score // 200
         if next_room_index != current_room_index and next_room_index < len(room_images):
             current_room_index = next_room_index
             menu.state = "house"
